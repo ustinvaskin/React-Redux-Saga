@@ -17,16 +17,25 @@ export function createPost(post) {
 // This is how to fetch posts
 export function fetchPosts() {
   return async (dispatch) => {
-    dispatch(showloader());
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/posts?_limit=5"
-    );
-    const json = await response.json();
-    dispatch({
-      type: FETCH_POSTS,
-      payload: json,
-    });
-    dispatch(hideLoader());
+    try {
+      dispatch(showloader());
+      const response = await fetch(
+        "https://jsonlaceholder.typicode.com/posts?_limit=5"
+      );
+      const json = await response.json();
+      setTimeout(() => {
+        dispatch({
+          type: FETCH_POSTS,
+          payload: json,
+        });
+        dispatch(hideLoader());
+      }, 1000);
+    } catch (err) {
+      dispatch(showAlert("Something is wrong"));
+      setTimeout(()=>{
+        dispatch(hideLoader())
+      }, 1000)
+    }
   };
 }
 
