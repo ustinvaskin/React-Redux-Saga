@@ -6,30 +6,30 @@ import {createPost} from '../redux/actions'
     super(props);
     this.state = {
       title: "",
-      content: "",
+      body: "",
     };
   }
 
   // ON SUBMIY
   submitHandler = (event) => {
     event.preventDefault();
-    const { title, content } = this.state;
+    const { title, body } = this.state;
 // will not allow empty fields
-    if (!title.trim() || !content.trim()){
+    if (!title.trim() || !body.trim()){
         alert('Please fill in required fileds')
         return
     }
     // WE CREATE NEW POST
     const newPost = {
       title,
-      content,
+      body,
       id: Date.now().toString(),
     };
     console.log(newPost);
     // AND GIVE IT TO THE FUNCTION ACTION createPost
     // SO IT WILL ACCEPT NEW POST AS PAYLOAD
     this.props.createPost(newPost)
-    this.setState({ title: "", content: "" });
+    this.setState({ title: "", body: "" });
   };
 
   changeInputHandler = (event) => {
@@ -51,13 +51,13 @@ import {createPost} from '../redux/actions'
             value={this.state.title}
             onChange={this.changeInputHandler}
           />
-          <label htmlFor="content">Content</label>
+          <label htmlFor="body">Content</label>
           <textarea
             type="text"
-            name="content"
-            id="content"
+            name="body"
+            id="body"
             className="form-control"
-            value={this.state.content}
+            value={this.state.body}
             onChange={this.changeInputHandler}
           />
         </div>
