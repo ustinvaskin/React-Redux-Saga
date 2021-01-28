@@ -7,3 +7,5 @@ export default ({posts}) => {
     }
     return posts.map(post => <Post post= {post}/> );
 };
+
+
