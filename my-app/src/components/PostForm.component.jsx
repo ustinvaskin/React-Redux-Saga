@@ -1,7 +1,10 @@
 import React from "react";
-import {connect} from 'react-redux'
-import {createPost} from '../redux/actions'
- class PostForm extends React.Component {
+import { connect } from "react-redux";
+import { createPost, showAlert } from "../redux/actions";
+import Alert from './Alert'
+
+
+class PostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,15 +12,13 @@ import {createPost} from '../redux/actions'
       body: "",
     };
   }
-
-  // ON SUBMIY
+  // ON SUBMIT
   submitHandler = (event) => {
     event.preventDefault();
     const { title, body } = this.state;
-// will not allow empty fields
-    if (!title.trim() || !body.trim()){
-        alert('Please fill in required fileds')
-        return
+    // will not allow empty fields
+    if (!title.trim() || !body.trim()) {
+      return this.props.showAlert("Need to fill in all required fieleds");
     }
     // WE CREATE NEW POST
     const newPost = {
@@ -28,7 +29,7 @@ import {createPost} from '../redux/actions'
     console.log(newPost);
     // AND GIVE IT TO THE FUNCTION ACTION createPost
     // SO IT WILL ACCEPT NEW POST AS PAYLOAD
-    this.props.createPost(newPost)
+    this.props.createPost(newPost);
     this.setState({ title: "", body: "" });
   };
 
@@ -41,6 +42,7 @@ import {createPost} from '../redux/actions'
   render() {
     return (
       <form onSubmit={this.submitHandler}>
+        { this.props.alert && <Alert text={this.props.alert} />}
         <div className="form-group pb-2">
           <label htmlFor="title">Post titile</label>
           <input
@@ -72,7 +74,12 @@ import {createPost} from '../redux/actions'
 
 // This will tell what action we need to add to this components
 const mapDispatchToProps = {
-createPost
-} 
+  createPost,
+  showAlert,
+};
 
-export default connect(null, mapDispatchToProps)(PostForm)
+const mapStateToPops = state => ({
+  alert: state.app.alert,
+});
+
+export default connect(mapStateToPops, mapDispatchToProps)(PostForm);
