@@ -1,6 +1,7 @@
 import React from "react";
-
-export default class PostForm extends React.Component {
+import {connect} from 'react-redux'
+import {createPost} from '../redux/actions'
+ class PostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,24 +10,29 @@ export default class PostForm extends React.Component {
     };
   }
 
-  // arrow function so no binding
+  // ON SUBMIY
   submitHandler = (event) => {
-    // no reloading
     event.preventDefault();
     const { title, content } = this.state;
-    // creating new post with data from input
+// will not allow empty fields
+    if (!title.trim() || !content.trim()){
+        alert('Please fill in required fileds')
+        return
+    }
+    // WE CREATE NEW POST
     const newPost = {
       title,
       content,
       id: Date.now().toString(),
     };
     console.log(newPost);
-    // clearing the input 
+    // AND GIVE IT TO THE FUNCTION ACTION createPost
+    // SO IT WILL ACCEPT NEW POST AS PAYLOAD
+    this.props.createPost(newPost)
     this.setState({ title: "", content: "" });
   };
 
   changeInputHandler = (event) => {
-    // dinamicly changing keys and values universal for inputs
     this.setState((prev) => ({
       ...prev,
       ...{ [event.target.name]: event.target.value },
@@ -63,3 +69,10 @@ export default class PostForm extends React.Component {
     );
   }
 }
+
+// This will tell what action we need to add to this components
+const mapDispatchToProps = {
+createPost
+} 
+
+export default connect(null, mapDispatchToProps)(PostForm)

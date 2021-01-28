@@ -8,7 +8,7 @@ const Posts = ({ syncPosts }) => {
   if (!syncPosts.length) {
     return <p className="text-center">There are no posts yet</p>;
   }
-  return syncPosts.map((post) => <Post post={post} />);
+  return syncPosts.map((post) => <Post post={post} key={post.id} />);
 };
 
 
@@ -17,11 +17,11 @@ const Posts = ({ syncPosts }) => {
 // it chages state to props 
 
 const mapStateToProps = state => {
- console.log(state.posts.fetchedPosts);
+ console.log(state.posts);
  // we can now rename state and get bits from state and it will our props 
  // note line 7 we get array of posts from state
  return {
-     syncPosts: state.posts.fetchedPosts
+     syncPosts: state.posts.posts
  };
 }
 
