@@ -5,6 +5,7 @@ export default class PostForm extends React.Component {
     super(props);
     this.state = {
       title: "",
+      content: "",
     };
   }
 
@@ -12,7 +13,16 @@ export default class PostForm extends React.Component {
   submitHandler = (event) => {
     // no reloading
     event.preventDefault();
-    console.log(this.state);
+    const { title, content } = this.state;
+    // creating new post with data from input
+    const newPost = {
+      title,
+      content,
+      id: Date.now().toString(),
+    };
+    console.log(newPost);
+    // clearing the input 
+    this.setState({ title: "", content: "" });
   };
 
   changeInputHandler = (event) => {
@@ -33,6 +43,15 @@ export default class PostForm extends React.Component {
             id="title"
             className="form-control"
             value={this.state.title}
+            onChange={this.changeInputHandler}
+          />
+          <label htmlFor="content">Content</label>
+          <textarea
+            type="text"
+            name="content"
+            id="content"
+            className="form-control"
+            value={this.state.content}
             onChange={this.changeInputHandler}
           />
         </div>
