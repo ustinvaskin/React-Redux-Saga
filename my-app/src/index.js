@@ -3,13 +3,17 @@ import {render} from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import {compose, createStore} from 'redux'
+import thunk from 'redux-thunk'
+
+import {compose, createStore, applyMiddleware} from 'redux'
 import { rootReducer } from './redux/rootReducer';
 // Wrapper we are adding extra functionality, it accepts object store as a parameter, 
 // so now our components can see store and use redux functionality
 import {Provider} from 'react-redux'
 // create store with dev tools using compose becuse we can add middleweare
-const store = createStore(rootReducer, compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+const store = createStore(rootReducer, compose(
+  applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
 
 render(
   <React.StrictMode>
