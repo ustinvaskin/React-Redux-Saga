@@ -1,5 +1,5 @@
 // initial state for posts
-import { CREATE_POST, FETCH_POSTS } from "./type";
+import { CREATE_POST, FETCH_POSTS } from "./types";
 
 const initialState = {
   posts: [],

@@ -1,4 +1,4 @@
-import { HIDE_LOADER, SHOW_LOADER, HIDE_ALERT, SHOW_ALERT } from "./type";
+import { HIDE_LOADER, SHOW_LOADER, HIDE_ALERT, SHOW_ALERT } from "./types";
 
 const initialState = {
   loading: false,
