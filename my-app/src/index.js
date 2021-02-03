@@ -2,9 +2,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import thunk from 'redux-thunk'
-
+import {forbiddenWordsMiddlewear} from './redux/middlewear'
 import {compose, createStore, applyMiddleware} from 'redux'
 import { rootReducer } from './redux/rootReducer';
 // Wrapper we are adding extra functionality, it accepts object store as a parameter, 
@@ -12,7 +11,7 @@ import { rootReducer } from './redux/rootReducer';
 import {Provider} from 'react-redux'
 // create store with dev tools using compose becuse we can add middleweare
 const store = createStore(rootReducer, compose(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, forbiddenWordsMiddlewear),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
 
 render(

@@ -20,7 +20,7 @@ export function fetchPosts() {
     try {
       dispatch(showloader());
       const response = await fetch(
-        "https://jsonlaceholder.typicode.com/posts?_limit=5"
+        "https://jsonplaceholder.typicode.com/posts?_limit=5"
       );
       const json = await response.json();
       setTimeout(() => {
